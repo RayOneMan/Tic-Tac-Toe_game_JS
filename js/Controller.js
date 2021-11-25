@@ -2,9 +2,8 @@ import { winIn, size, name } from './Model.js';
 
 var coor_pc = [];
 var coor_pl = [];
-var kletki = [];
+var cell_arr = [];
 var length_cell = 52;
-var move;
 var player = "x";
 var pc_player = "o";
 var size1;
@@ -35,11 +34,10 @@ async function writeGameInfo(win, figure_people) {
 export function game() {
     document.getElementById("area").style.width = length_cell * parseInt(size);
     size1 = parseInt(size) * parseInt(size);
-    console.log(winIn);
 
     for (var i = 0; i <= (size1 - 1); i++) {
         area.innerHTML += "<div class='cell' id=" + i + "></div>";
-        kletki[i] = i + 1;
+        cell_arr[i] = i + 1;
     }
 
 
@@ -69,35 +67,31 @@ export function game() {
 
     who_one();
 
-    function inputCoor() {
-        if (coor_pc.length > coor_pl.length) {
+    function inputCoor(){
+        if(coor_pc.length > coor_pl.length){
             coor_pl.push("-");
         }
-        if (coor_pc.length < coor_pl.length) {
+        if(coor_pc.length < coor_pl.length){
             coor_pc.push("-");
         }
-        if (first == 1) {
-            for (var i = 0; i <= coor_pc.length - 1; i++) {
-                var text = "Move number " + (i + 1) + " | coordinate x = " + coor_pc[i] + " | coordinate o = " + coor_pl[i];
+        if(first == 1){
+            for(var i = 0; i<=coor_pc.length - 1; i++){
+                var text = "Move number " + (i+1) + " | coordinate x = " + coor_pc[i] + " | coordinate o = " + coor_pl[i];
                 array_coord.push(text);
             }
-        } else {
-            for (var i = 0; i <= coor_pc.length - 1; i++) {
-                var text = "Move number " + (i + 1) + " | coordinate x = " + coor_pl[i] + " | coordinate o = " + coor_pc[i];
+        } else{
+            for(var i = 0; i<=coor_pc.length - 1; i++){
+                var text = "Move number " + (i+1) + " | coordinate x = " + coor_pl[i] + " | coordinate o = " + coor_pc[i];
                 array_coord.push(text);
             }
         }
     }
 
-    function pc_move() {
+    function pc_move(){
         while (true) {
-            var rand = Math.floor(Math.random() * kletki.length);
-            if (kletki[rand] != 0) break
+            var rand = Math.floor(Math.random() * cell_arr.length);
+            if (cell_arr[rand] != 0) break
         }
-        var hod = parseInt(kletki[rand]) - 1;
-        document.getElementById(hod).innerHTML = pc_player;
-        coor_pc.push(hod);
-        kletki[rand] = 0;
         var move = parseInt(cell_arr[rand]) - 1;
         document.getElementById(move).innerHTML = pc_player;
         coor_pc.push(move);
@@ -140,7 +134,7 @@ export function game() {
         for (var i in cell) {
             if (cell[i].innerHTML == player) {
                 data.push(parseInt(cell[i].getAttribute('id')));
-                kletki[i] = 0;
+                cell_arr[i] = 0;
             }
         }
         if (checkWin(coor_pl)) {
