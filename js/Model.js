@@ -1,4 +1,4 @@
-import { game } from './Controller.js';
+import { game, initializeDatabase } from './Controller.js';
 
 export var winIn = [];
 export let name = prompt('Enter your name (Default name - "Guest")')
@@ -53,5 +53,5 @@ export function start_game() {
         }
     }
 }
-
+initializeDatabase();
 game();
